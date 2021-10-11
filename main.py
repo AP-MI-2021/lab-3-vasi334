@@ -16,6 +16,9 @@ def patrat_perfect(n) -> bool:
 
 
 def get_longest_all_perfect_squares(lst: list[int]) -> list[int]:
+    """
+    Determina cea mai lungă subsecvență cu proprietatea ca numerele sunt patrate perfecte
+    """
 
     longest_list = 0
     actual_list = 0
@@ -59,7 +62,7 @@ def get_longest_all_perfect_squares(lst: list[int]) -> list[int]:
 
     if start == 0 and end == 0:
         if patrat_perfect(lst[0]):
-            return lst[start:end+1]
+            return lst[start:end + 1]
         else:
             return []
     elif end == 0:
@@ -104,12 +107,17 @@ def numbers_of_1_in_binary(lst: list[int]) -> bool:
 
 
 def get_longest_same_bit_counts(lst: list[int]) -> list[int]:
+    """
+    Determina cea mai lungă subsecvență cu proprietatea
+    ca numerele au același număr de biți de 1 în reprezentarea binară
+    """
+
     subsecventa_maxima = []
 
     for i in range(len(lst)):
         for j in range(i, len(lst)):
-            if numbers_of_1_in_binary(lst[i:j+1]) and len(lst[i:j+1]) > len(subsecventa_maxima):
-                subsecventa_maxima = lst[i:j+1]
+            if numbers_of_1_in_binary(lst[i:j + 1]) and len(lst[i:j + 1]) > len(subsecventa_maxima):
+                subsecventa_maxima = lst[i:j + 1]
 
     return subsecventa_maxima
 
@@ -128,7 +136,6 @@ Problema 10
 
 
 def numere_pare(lista):
-
     for i in range(len(lista)):
         if lista[i] % 2 == 1:
             return False
@@ -137,6 +144,10 @@ def numere_pare(lista):
 
 
 def get_longest_all_even(lst: list[int]) -> list[int]:
+    """
+    Determina cea mai lungă subsecvență cu proprietatea ca numerele sunt pare
+    """
+
     subsecventa_maxima = []
 
     for i in range(len(lst)):
@@ -155,28 +166,47 @@ def test_get_longest_all_even():
     assert get_longest_all_even([3, 1, 2, 7]) == [2]
 
 
+def citirelista():
+    l = []
+    givenString = input("dati lista cu elemente separate prin virgula")
+    numberAsString = givenString.split(",")
+    for x in numberAsString:
+        l.append(int(x))
+    return l
+
+
 def main():
+    test_get_longest_all_perfect_squares()
+    test_get_longest_same_bit_counts()
+    test_get_longest_all_even()
+
+    lista = []
+
     user_choice = """
     Alegeti:
-    1. Determinati cea mai lungă subsecvență cu proprietatea ca numerele sunt patrate perfecte
-    
-    2. Determinati cea mai lungă subsecvență cu proprietatea
+    1. Citire lista
+
+    2. Determinati cea mai lungă subsecvență cu proprietatea ca numerele sunt patrate perfecte
+
+    3. Determinati cea mai lungă subsecvență cu proprietatea
     ca numerele au același număr de biți de 1 în reprezentarea binară
-    
-    3. Determinati cea mai lungă subsecvență cu proprietatea ca numerele sunt pare
-    
-    4. Iesire
+
+    4. Determinati cea mai lungă subsecvență cu proprietatea ca numerele sunt pare
+
+    5. Iesire
     """
 
     a = input(user_choice)
 
-    while a != '4':
+    while a != '5':
         if a == '1':
-            test_get_longest_all_perfect_squares()
+            lista = citirelista()
         elif a == '2':
-            test_get_longest_same_bit_counts()
+            print(get_longest_all_perfect_squares(lista))
         elif a == '3':
-            test_get_longest_all_even()
+            print(get_longest_same_bit_counts(lista))
+        elif a == '4':
+            print(get_longest_all_even(lista))
         a = input(user_choice)
 
 
